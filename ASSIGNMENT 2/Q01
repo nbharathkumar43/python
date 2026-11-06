@@ -1,0 +1,39 @@
+def evaluate_separate_ifs(units, has_ration_card, has_senior_citizen):
+    decisions = []
+    if units <= 100:
+        decisions.append("Full Subsidy")
+    if 101 <= units <= 200 and has_ration_card:
+        decisions.append("Partial Subsidy")
+    if units > 200 and has_senior_citizen:
+        decisions.append("Senior Citizen Subsidy")
+    if not decisions:
+        decisions.append("No Subsidy")
+    return decisions
+
+
+def evaluate_if_elif_else(units, has_ration_card, has_senior_citizen):
+    if units <= 100:
+        return "Full Subsidy"
+    elif 101 <= units <= 200 and has_ration_card:
+        return "Partial Subsidy"
+    elif units > 200 and has_senior_citizen:
+        return "Senior Citizen Subsidy"
+    else:
+        return "No Subsidy"
+
+
+test_cases = [
+    (50, False, False),
+    (100, False, False),
+    (101, True, False),
+    (101, False, False),
+    (200, True, False),
+    (201, False, True),
+    (201, False, False),
+    (350, True, True),
+]
+
+for units, card, senior in test_cases:
+    res_sep = ", ".join(evaluate_separate_ifs(units, card, senior))
+    res_elif = evaluate_if_elif_else(units, card, senior)
+    print(f"{units:<4} | Card: {str(card):<5} | Senior: {str(senior):<5} | Separate: {res_sep:<25} | Elif: {res_elif}")
